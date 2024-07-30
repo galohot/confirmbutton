@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="system" method="upgrade">
+    <name>PLG_SYSTEM_CONFIRM_BUTTON</name>
+    <version>1.0.0</version>
+    <description>System plugin to handle confirm button actions.</description>
+    <files>
+        <file plugin="confirmbutton">confirmbutton.php</file>
+        <file>en-GB.plg_system_confirmbutton.ini</file>
+    </files>
+    <languages>
+        <language tag="en-GB">en-GB.plg_system_confirmbutton.ini</language>
+    </languages>
+    <config>
+        <params>
+            <param name="com_ajax_enabled" type="hidden" value="1" />
+        </params>
+    </config>
+</extension>
