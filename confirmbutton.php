@@ -39,7 +39,8 @@ class PlgSystemConfirmButton extends CMSPlugin
             // Check if records are over 1000
             $query = $db->getQuery(true)
                         ->select('COUNT(*)')
-                        ->from($db->quoteName($table));
+                        ->from($db->quoteName($table))
+                        ->where($db->quoteName('status') . ' = ' . $db->quote('approved')); // Modified line
             $db->setQuery($query);
             $count = $db->loadResult();
 
