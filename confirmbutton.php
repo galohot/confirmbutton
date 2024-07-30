@@ -30,15 +30,16 @@ class PlgSystemConfirmButton extends CMSPlugin
         $id = $input->getInt('id');
         $email = $input->getString('email');
         $fullName = $input->getString('fullname');
+        $table = $input->getString('tbl');
 
-        if ($id && $email && $fullName)
+        if ($id && $email && $fullName && $table)
         {
             $db = Factory::getDbo();
 
             // Check if records are over 1000
             $query = $db->getQuery(true)
                         ->select('COUNT(*)')
-                        ->from($db->quoteName('tbl_reg_delegate'));
+                        ->from($db->quoteName($table));
             $db->setQuery($query);
             $count = $db->loadResult();
 
@@ -74,7 +75,7 @@ The 2nd IAF Registration Committee";
             }
 
             $query = $db->getQuery(true)
-                        ->update($db->quoteName('tbl_reg_delegate'))
+                        ->update($db->quoteName($table))
                         ->set($db->quoteName('status') . ' = ' . $db->quote($status))
                         ->where($db->quoteName('id') . ' = ' . $db->quote($id));
             $db->setQuery($query);
@@ -105,7 +106,7 @@ The 2nd IAF Registration Committee";
         }
         else
         {
-            Factory::getApplication()->enqueueMessage('Missing ID, email, or fullname', 'error');
+            Factory::getApplication()->enqueueMessage('Missing ID, email, fullname, or table name', 'error');
         }
 
         $app = Factory::getApplication();
@@ -116,12 +117,13 @@ The 2nd IAF Registration Committee";
     {
         $input = Factory::getApplication()->input;
         $id = $input->getInt('id');
+        $table = $input->getString('tbl');
 
-        if ($id)
+        if ($id && $table)
         {
             $db = Factory::getDbo();
             $query = $db->getQuery(true)
-                        ->update($db->quoteName('tbl_reg_delegate'))
+                        ->update($db->quoteName($table))
                         ->set($db->quoteName('status') . ' = ' . $db->quote('rescinded'))
                         ->where($db->quoteName('id') . ' = ' . $db->quote($id));
             $db->setQuery($query);
@@ -130,7 +132,7 @@ The 2nd IAF Registration Committee";
             // Send rescind email
             $query = $db->getQuery(true)
                         ->select($db->quoteName(array('email', 'fullname')))
-                        ->from($db->quoteName('tbl_reg_delegate'))
+                        ->from($db->quoteName($table))
                         ->where($db->quoteName('id') . ' = ' . $db->quote($id));
             $db->setQuery($query);
             $result = $db->loadObject();
@@ -171,7 +173,7 @@ The 2nd IAF Registration Committee";
         }
         else
         {
-            Factory::getApplication()->enqueueMessage('Missing ID', 'error');
+            Factory::getApplication()->enqueueMessage('Missing ID or table name', 'error');
         }
 
         $app = Factory::getApplication();
