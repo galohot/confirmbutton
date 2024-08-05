@@ -10,47 +10,55 @@
   <p>{joodb exportbutton}</p>
 </div>
 
-{joodb orderlink|id|Id}{joodb orderlink|first_name|First Name}{joodb
-orderlink|last_name|Last Name}{joodb orderlink|created|latest}{joodb
-orderlink|country_org|Country/IO}{joodb orderlink|status|Registration Status}
+{joodb sortlink|id}{joodb sortlink|nationality}{joodb sortlink|country}{joodb
+sortlink|status}
 
 <!-- Title with Sortlinks -->
 <div class="block header">
-  <h2>Catalogue Items</h2>
+  <h2>Titel/Name</h2>
 </div>
 
 <!-- Table Start -->
-<div class="table" data-tbl="tbl_reg_delegate" data-quota="9999">
+<div class="table" data-tbl="tbl_reg_delegate_v1" data-quota="9999">
   {joodb loop}
-  <div
-    class="tr {joodb loopclass}"
-    style="
-      display: flex;
-      border: 1px solid #ddd;
-      margin-bottom: 20px;
-      padding: 15px;
-    "
-  >
+  <div class="tr {joodb loopclass}">
+    <div class="td" style="width: 80px; text-align: center">
+      <strong>{joodb field|id}</strong>
+    </div>
     <img
+      style="width: 200px; height: 200px; object-fit: cover; margin-right: 20px"
       src="https://iaf.kemlu.go.id/abc_files/country/photo/{joodb field|photo}"
       alt="test"
-      style="width: 200px; height: 200px; object-fit: cover; margin-right: 20px"
     />
-    <div class="td" style="flex: 1">
-      <h3 class="title" style="margin-top: 0; color: #333">
-        {joodb field|first_name} {joodb field|last_name}
-      </h3>
+    <div class="td">
+      <h3 class="title">{joodb field|first_name} {joodb field|last_name}</h3>
       <ul class="details" style="list-style-type: none; padding-left: 0">
-        <li><strong>ID:</strong> {joodb field|id}</li>
         <li>
-          <strong>Country/Organization:</strong> {joodb field|country_org}
+          <span style="font-weight: bold">Nationality: </span>{joodb
+          field|nationality}
         </li>
-        <li><strong>Email:</strong> {joodb field|email}</li>
-        <li><strong>Badge:</strong> {joodb field|badge}</li>
-        <li><strong>Position:</strong> {joodb field|position}</li>
-        <li><strong>Created at:</strong> {joodb field|created}</li>
+        <li>
+          <span style="font-weight: bold">Country/Organization: </span>{joodb
+          field|country}
+        </li>
+        <li>
+          <span style="font-weight: bold">Position: </span>{joodb
+          field|position}
+        </li>
+        <li>
+          <span style="font-weight: bold">Email: </span>{joodb field|email}
+        </li>
+        <li>
+          <span style="font-weight: bold">Created at: </span>{joodb
+          field|created}
+        </li>
         {joodb ifis|status|pending}
         <li>
+          <input
+            type="text"
+            class="reason-input"
+            placeholder="Enter reason (optional)"
+          />
           <button
             class="confirm-button"
             data-id="{joodb field|id}"
@@ -73,6 +81,11 @@ orderlink|country_org|Country/IO}{joodb orderlink|status|Registration Status}
         {joodb endif} {joodb ifis|status|rescinded}
         <li>
           <p style="color: red"><i class="fa fa-times-circle"></i> Rescinded</p>
+          <input
+            type="text"
+            class="reason-input"
+            placeholder="Enter reason (optional)"
+          />
           <button
             class="confirm-button"
             data-id="{joodb field|id}"
@@ -82,12 +95,26 @@ orderlink|country_org|Country/IO}{joodb orderlink|status|Registration Status}
           >
             <i class="fa fa-check" style="color: green"></i> Confirm
           </button>
+          <button
+            class="reject-button"
+            data-id="{joodb field|id}"
+            data-email="{joodb field|email}"
+            data-first_name="{joodb field|first_name|strip}"
+            data-last_name="{joodb field|last_name|strip}"
+          >
+            <i class="fa fa-ban" style="color: red"></i> Reject
+          </button>
         </li>
         {joodb endif} {joodb ifis|status|waiting list}
         <li class="py-3">
           <p style="color: blue">
             <i class="fa fa-hourglass-half"></i> Waiting List
           </p>
+          <input
+            type="text"
+            class="reason-input"
+            placeholder="Enter reason (optional)"
+          />
           <button
             class="confirm-button"
             data-id="{joodb field|id}"
@@ -103,6 +130,11 @@ orderlink|country_org|Country/IO}{joodb orderlink|status|Registration Status}
           </button>
         </li>
         <li>
+          <input
+            type="text"
+            class="reason-input"
+            placeholder="Enter reason (optional)"
+          />
           <button
             class="rescind-button"
             data-id="{joodb field|id}"
@@ -116,6 +148,11 @@ orderlink|country_org|Country/IO}{joodb orderlink|status|Registration Status}
         {joodb endif} {joodb ifis|status|rejected}
         <li>
           <p style="color: grey"><i class="fa fa-ban"></i> Rejected</p>
+          <input
+            type="text"
+            class="reason-input"
+            placeholder="Enter reason (optional)"
+          />
           <button
             class="rescind-reject-button"
             data-id="{joodb field|id}"
@@ -131,6 +168,11 @@ orderlink|country_org|Country/IO}{joodb orderlink|status|Registration Status}
           <p style="color: green">
             <i class="fa fa-check-circle"></i> Approved
           </p>
+          <input
+            type="text"
+            class="reason-input"
+            placeholder="Enter reason (optional)"
+          />
           <button
             class="rescind-button"
             data-id="{joodb field|id}"
@@ -143,15 +185,17 @@ orderlink|country_org|Country/IO}{joodb orderlink|status|Registration Status}
         </li>
         {joodb endif}
       </ul>
-      <div class="readon" style="margin-top: 10px">{joodb readon}</div>
+      <div class="readon">{joodb readon}</div>
     </div>
   </div>
   {joodb loop}
 </div>
 
+<!-- No Data Message -->
 <h3>{joodb nodata}</h3>
 
-<div class="pagination" style="margin-top: 20px; text-align: center">
+<!-- Pagination -->
+<div class="pagination">
   <p>{joodb pagecount}</p>
   {joodb pagenav}
 </div>

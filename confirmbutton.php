@@ -115,6 +115,7 @@ class PlgSystemConfirmButton extends CMSPlugin
         $input = Factory::getApplication()->input;
         $id = $input->getInt('id');
         $table = $input->getString('tbl');
+        $reason = $input->getString('reason', '');
 
         if ($id && $table)
         {
@@ -147,6 +148,10 @@ class PlgSystemConfirmButton extends CMSPlugin
                     [$firstName, $lastName],
                     $messageTemplate
                 );
+
+                if (!empty($reason)) {
+                    $messageBody .= "\n\nP.S.\nThe reasons are as follows:\n" . $reason;
+                }
 
                 $mailer = Factory::getMailer();
                 $config = Factory::getConfig();
@@ -188,6 +193,7 @@ class PlgSystemConfirmButton extends CMSPlugin
         $firstName = $input->getString('first_name');
         $lastName = $input->getString('last_name');
         $table = $input->getString('tbl');
+        $reason = $input->getString('reason', '');
 
         if ($id && $email && $firstName && $lastName && $table)
         {
@@ -208,6 +214,10 @@ class PlgSystemConfirmButton extends CMSPlugin
                 [$firstName, $lastName],
                 $messageTemplate
             );
+
+            if (!empty($reason)) {
+                $messageBody .= "\n\nP.S.\nThe reasons are as follows:\n" . $reason;
+            }
 
             // Send rejection email
             $mailer = Factory::getMailer();
@@ -246,6 +256,7 @@ class PlgSystemConfirmButton extends CMSPlugin
         $input = Factory::getApplication()->input;
         $id = $input->getInt('id');
         $table = $input->getString('tbl');
+        $reason = $input->getString('reason', '');
 
         if ($id && $table)
         {
@@ -278,6 +289,10 @@ class PlgSystemConfirmButton extends CMSPlugin
                     [$firstName, $lastName],
                     $messageTemplate
                 );
+
+                if (!empty($reason)) {
+                    $messageBody .= "\n\nP.S.\nThe reasons are as follows:\n" . $reason;
+                }
 
                 $mailer = Factory::getMailer();
                 $config = Factory::getConfig();

@@ -27,7 +27,20 @@
                     description="Message to send when the registration is approved. Use {first_name} and {last_name} as placeholders."
                     rows="10"
                     cols="50"
-                    default="Dear {first_name} {last_name},\n\nThank you for registering for the 2nd Indonesia-Africa Forum (IAF). Your participation is confirmed for the event in Bali scheduled from September 1-3, 2024.\n\nPlease visit our website at iaf.kemlu.go.id for the latest updates on the program, concept note, administrative details, and more. Please be advised that some programs require special access to attend.\n\nShould you require assistance with visa procedures, don't hesitate to get in touch with the Indonesian Embassy in your country.\n\nFor any further questions, feel free to email us at iaf.reg@kemlu.go.id.\n\nWe are looking forward to welcoming you to Bali.\n\nWarm regards,\nThe 2nd IAF Registration Committee"
+                    default="Dear {first_name} {last_name},
+
+Thank you for registering for the 2nd Indonesia-Africa Forum (IAF). Your participation is confirmed for the event in Bali scheduled from September 1-3, 2024.
+
+Please visit our website at iaf.kemlu.go.id for the latest updates on the program, concept note, administrative details, and more. Please be advised that some programs require special access to attend.
+
+Should you require assistance with visa procedures, don't hesitate to get in touch with the Indonesian Embassy in your country.
+
+For any further questions, feel free to email us at iaf.reg@kemlu.go.id.
+
+We are looking forward to welcoming you to Bali.
+
+Warm regards,
+The 2nd IAF Registration Committee"
                 />
                 <field
                     name="waiting_list_message"
@@ -36,7 +49,16 @@
                     description="Message to send when the registration is put on the waiting list. Use {first_name} and {last_name} as placeholders."
                     rows="10"
                     cols="50"
-                    default="Dear {first_name} {last_name},\n\nThank you for registering for the 2nd Indonesia-Africa Forum (IAF).\nDue to overwhelming interest, we have reached our full capacity, and your registration is now on the waiting list.\nTo follow up on the spot availability, please reach out to us by email at iaf.reg@kemlu.go.id.\n\nWarm regards,\nThe 2nd IAF Registration Committee"
+                    default="Dear {first_name} {last_name},
+
+Thank you for registering for the 2nd Indonesia-Africa Forum (IAF).
+
+Due to overwhelming interest, we have reached our full capacity, and your registration is now on the waiting list.
+
+To follow up on the spot availability, please reach out to us by email at iaf.reg@kemlu.go.id.
+
+Warm regards,
+The 2nd IAF Registration Committee"
                 />
                 <field
                     name="rescinded_message"
@@ -45,7 +67,12 @@
                     description="Message to send when the registration is rescinded. Use {first_name} and {last_name} as placeholders."
                     rows="10"
                     cols="50"
-                    default="Dear {first_name} {last_name},\n\nWe regret to inform you that your status for the 2nd Indonesia-Africa Forum (IAF) has been rescinded. Please contact us at iaf.reg@kemlu.go.id if you have any questions or need further assistance.\n\nWarm regards,\nThe 2nd IAF Registration Committee"
+                    default="Dear {first_name} {last_name},
+
+We regret to inform you that your status for the 2nd Indonesia-Africa Forum (IAF) has been rescinded. Please contact us at iaf.reg@kemlu.go.id if you have any questions or need further assistance.
+
+Warm regards,
+The 2nd IAF Registration Committee"
                 />
                 <field
                     name="rejected_message"
@@ -54,7 +81,12 @@
                     description="Message to send when the registration is rejected. Use {first_name} and {last_name} as placeholders."
                     rows="10"
                     cols="50"
-                    default="Dear {first_name} {last_name},\n\nWe regret to inform you that your registration for the 2nd Indonesia-Africa Forum (IAF) has been rejected. Please contact us at iaf.reg@kemlu.go.id if you have any questions or need further assistance.\n\nWarm regards,\nThe 2nd IAF Registration Committee"
+                    default="Dear {first_name} {last_name},
+
+We regret to inform you that your registration for the 2nd Indonesia-Africa Forum (IAF) has been rejected. Please contact us at iaf.reg@kemlu.go.id if you have any questions or need further assistance.
+
+Warm regards,
+The 2nd IAF Registration Committee"
                 />
                 <field
                     name="rescind_rejection_message"
@@ -63,7 +95,12 @@
                     description="Message to send when the registration rejection is rescinded. Use {first_name} and {last_name} as placeholders."
                     rows="10"
                     cols="50"
-                    default="Dear {first_name} {last_name},\n\nYour registration status for the 2nd Indonesia-Africa Forum (IAF) has been changed back to pending. Please contact us at iaf.reg@kemlu.go.id if you have any questions or need further assistance.\n\nWarm regards,\nThe 2nd IAF Registration Committee"
+                    default="Dear {first_name} {last_name},
+
+Your registration status for the 2nd Indonesia-Africa Forum (IAF) has been changed back to pending. Please contact us at iaf.reg@kemlu.go.id if you have any questions or need further assistance.
+
+Warm regards,
+The 2nd IAF Registration Committee"
                 />
             </fieldset>
         </fields>
