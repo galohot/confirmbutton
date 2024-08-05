@@ -10,12 +10,14 @@
   <p>{joodb exportbutton}</p>
 </div>
 
-{joodb sortlink|id}{joodb sortlink|nationality}{joodb sortlink|country}{joodb
-sortlink|status}
-
 <!-- Title with Sortlinks -->
 <div class="block header">
-  <h2>Titel/Name</h2>
+  <h2 class="text-white">
+    IAF 2024 COUNTRIES AND INTERNATIONAL ORGANIZATION DATA
+  </h2>
+  {joodb orderlink|id|ID} -- {joodb orderlink|status|Status} -- {joodb
+  orderlink|nationality|Nationality} -- {joodb orderlink|country|Country} --
+  {joodb orderlink|created|Latest}
 </div>
 
 <!-- Table Start -->
@@ -26,7 +28,7 @@ sortlink|status}
       <strong>{joodb field|id}</strong>
     </div>
     <img
-      style="width: 200px; height: 200px; object-fit: cover; margin-right: 20px"
+      style="max-width: 400px; object-fit: cover; margin-right: 20px"
       src="https://iaf.kemlu.go.id/abc_files/country/photo/{joodb field|photo}"
       alt="test"
     />
@@ -34,23 +36,212 @@ sortlink|status}
       <h3 class="title">{joodb field|first_name} {joodb field|last_name}</h3>
       <ul class="details" style="list-style-type: none; padding-left: 0">
         <li>
-          <span style="font-weight: bold">Nationality: </span>{joodb
-          field|nationality}
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> ID: </span
+          ><span>{joodb field|id}</span>
         </li>
         <li>
-          <span style="font-weight: bold">Country/Organization: </span>{joodb
-          field|country}
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Created: </span
+          ><span>{joodb field|created}</span>
         </li>
         <li>
-          <span style="font-weight: bold">Position: </span>{joodb
-          field|position}
+          <span style="font-weight: bold">User ID: </span
+          ><span>{joodb field|user_id}</span>
         </li>
         <li>
-          <span style="font-weight: bold">Email: </span>{joodb field|email}
+          <span style="font-weight: bold">Input By: </span
+          ><span>{joodb field|input_by}</span>
         </li>
         <li>
-          <span style="font-weight: bold">Created at: </span>{joodb
-          field|created}
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Delegation Type: </span
+          ><span>{joodb field|delegation_type}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Prefix: </span
+          ><span>{joodb field|prefix}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Last Name: </span
+          ><span>{joodb field|last_name}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> First Name: </span
+          ><span>{joodb field|first_name}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Sex: </span
+          ><span>{joodb field|sex}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Place of Birth: </span
+          ><span>{joodb field|place_of_birth}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Date of Birth: </span
+          ><span>{joodb field|date_of_birth}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Country: </span
+          ><span>{joodb field|country}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Nationality: </span
+          ><span>{joodb field|nationality}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Institution: </span
+          ><span>{joodb field|institution}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Position: </span
+          ><span>{joodb field|position}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Badge: </span
+          ><span>{joodb field|badge}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Phone: </span
+          ><span>{joodb field|phone}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Email: </span
+          ><span>{joodb field|email}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Passport Type: </span
+          ><span>{joodb field|passport_type}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Passport Number: </span
+          ><span>{joodb field|passport_number}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Passport Expiry: </span
+          ><span>{joodb field|passport_expiry}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Passport Issuance: </span
+          ><span>{joodb field|passport_issuance}</span>
+        </li>
+        <li>
+          <span style="font-weight: bold">Hotel: </span
+          ><span>{joodb field|hotel}</span>
+        </li>
+        <li>
+          <span style="font-weight: bold">Arrival Date: </span
+          ><span>{joodb field|arrival_date}</span>
+        </li>
+        <li>
+          <span style="font-weight: bold">Arrival Flight Number: </span
+          ><span>{joodb field|arrival_flight_number}</span>
+        </li>
+        <li>
+          <span style="font-weight: bold">Departure Date: </span
+          ><span>{joodb field|departure_date}</span>
+        </li>
+        <li>
+          <span style="font-weight: bold">Departure Flight Number: </span
+          ><span>{joodb field|departure_flight_number}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Photo: </span>
+          <a
+            href="https://iaf.kemlu.go.id/abc_files/country/photo/{joodb field|photo}"
+            target="_blank"
+          >
+            <span>View</span> <i class="fas fa-external-link-alt"></i>
+          </a>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Passport File: </span>
+          <a
+            href="https://iaf.kemlu.go.id/abc_files/country/passport/{joodb field|passport_file}"
+            target="_blank"
+          >
+            <span>View</span> <i class="fas fa-external-link-alt"></i>
+          </a>
+        </li>
+        <li>
+          <span style="font-weight: bold">Other Document 1: </span>
+          <a
+            href="https://iaf.kemlu.go.id/abc_files/country/other1/{joodb field|other_document1}"
+            target="_blank"
+          >
+            <span>View</span> <i class="fas fa-external-link-alt"></i>
+          </a>
+        </li>
+        <li>
+          <span style="font-weight: bold">Other Document 2: </span>
+          <a
+            href="https://iaf.kemlu.go.id/abc_files/country/other2/{joodb field|other_document2}"
+            target="_blank"
+          >
+            <span>View</span> <i class="fas fa-external-link-alt"></i>
+          </a>
+        </li>
+        <li>
+          <span style="font-weight: bold">Other Document 3: </span>
+          <a
+            href="https://iaf.kemlu.go.id/abc_files/country/other3/{joodb field|other_document3}"
+            target="_blank"
+          >
+            <span>View</span> <i class="fas fa-external-link-alt"></i>
+          </a>
+        </li>
+        <li>
+          <span style="font-weight: bold">Dietary Special: </span
+          ><span>{joodb field|dietary_special}</span>
+        </li>
+        <li>
+          <span style="font-weight: bold">Other Dietary Special: </span
+          ><span>{joodb field|otherdietaryspecial}</span>
+        </li>
+        <li>
+          <span style="font-weight: bold">Dietary Strict: </span
+          ><span>{joodb field|dietary_strict}</span>
+        </li>
+        <li>
+          <span style="font-weight: bold">Other Dietary Strict: </span
+          ><span>{joodb field|otherdietarystrict}</span>
+        </li>
+        <li>
+          <span style="font-weight: bold">Dietary Allergy: </span
+          ><span>{joodb field|dietary_allergy}</span>
+        </li>
+        <li>
+          <span style="font-weight: bold">Other Dietary Allergy: </span
+          ><span>{joodb field|otherdietaryallergy}</span>
+        </li>
+        <li>
+          <span style="font-weight: bold">Special Requirements: </span
+          ><span>{joodb field|special_requirements}</span>
+        </li>
+        <li>
+          <span style="color: red">*</span
+          ><span style="font-weight: bold"> Status: </span
+          ><span>{joodb field|status}</span>
         </li>
         {joodb ifis|status|pending}
         <li>
@@ -185,7 +376,9 @@ sortlink|status}
         </li>
         {joodb endif}
       </ul>
+      <!--
       <div class="readon">{joodb readon}</div>
+      -->
     </div>
   </div>
   {joodb loop}
