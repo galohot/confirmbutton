@@ -14,74 +14,56 @@
         <fields name="params">
             <fieldset name="basic">
                 <field
-                    name="quota"
-                    type="number"
-                    label="Quota"
-                    description="Maximum number of approved registrations."
-                    default="9999"
-                />
-                <field
-                    name="confirmation_subject"
+                    name="email_subject"
                     type="text"
-                    label="Confirmation Email Subject"
-                    description="Subject of the email sent when the registration is confirmed."
+                    label="Email Subject"
+                    description="Subject of the email notifications."
                     default="The Second IAF Registration"
                 />
                 <field
                     name="approved_message"
-                    type="editor"
-                    label="The Second IAF Registration"
-                    description="Message to send when the registration is approved. Use {fullname} as a placeholder for the full name."
-                    default="Dear {fullname},\n\nThank you for registering for the 2nd Indonesia-Africa Forum (IAF). Your participation is confirmed for the event in Bali scheduled from September 1-3, 2024.\n\nPlease visit our website at iaf.kemlu.go.id for the latest updates on the program, concept note, administrative details, and more. Please be advised that some programs require special access to attend.\n\nShould you require assistance with visa procedures, don't hesitate to get in touch with the Indonesian Embassy in your country.\n\nFor any further questions, feel free to email us at iaf.reg@kemlu.go.id.\n\nWe are looking forward to welcoming you to Bali.\n\nWarm regards,\nThe 2nd IAF Registration Committee"
+                    type="textarea"
+                    label="Approved Message"
+                    description="Message to send when the registration is approved. Use {first_name} and {last_name} as placeholders."
+                    rows="10"
+                    cols="50"
+                    default="Dear {first_name} {last_name},\n\nThank you for registering for the 2nd Indonesia-Africa Forum (IAF). Your participation is confirmed for the event in Bali scheduled from September 1-3, 2024.\n\nPlease visit our website at iaf.kemlu.go.id for the latest updates on the program, concept note, administrative details, and more. Please be advised that some programs require special access to attend.\n\nShould you require assistance with visa procedures, don't hesitate to get in touch with the Indonesian Embassy in your country.\n\nFor any further questions, feel free to email us at iaf.reg@kemlu.go.id.\n\nWe are looking forward to welcoming you to Bali.\n\nWarm regards,\nThe 2nd IAF Registration Committee"
                 />
                 <field
                     name="waiting_list_message"
-                    type="editor"
-                    label="The Second IAF Registration"
-                    description="Message to send when the registration is put on the waiting list. Use {fullname} as a placeholder for the full name."
-                    default="Dear {fullname},\n\nThank you for registering for the 2nd Indonesia-Africa Forum (IAF).\nDue to overwhelming interest, we have reached our full capacity, and your registration is now on the waiting list.\nTo follow up on the spot availability, please reach out to us by email at iaf.reg@kemlu.go.id.\n\nWarm regards,\nThe 2nd IAF Registration Committee"
-                />
-                <field
-                    name="rescinded_subject"
-                    type="text"
-                    label="Rescinded Email Subject"
-                    description="Subject of the email sent when the registration is rescinded."
-                    default="The Second IAF Registration"
+                    type="textarea"
+                    label="Waiting List Message"
+                    description="Message to send when the registration is put on the waiting list. Use {first_name} and {last_name} as placeholders."
+                    rows="10"
+                    cols="50"
+                    default="Dear {first_name} {last_name},\n\nThank you for registering for the 2nd Indonesia-Africa Forum (IAF).\nDue to overwhelming interest, we have reached our full capacity, and your registration is now on the waiting list.\nTo follow up on the spot availability, please reach out to us by email at iaf.reg@kemlu.go.id.\n\nWarm regards,\nThe 2nd IAF Registration Committee"
                 />
                 <field
                     name="rescinded_message"
-                    type="editor"
-                    label="The Second IAF Registration"
-                    description="Message to send when the registration is rescinded. Use {fullname} as a placeholder for the full name."
-                    default="Dear {fullname},\n\nWe regret to inform you that your status for the 2nd Indonesia-Africa Forum (IAF) has been rescinded. Please contact us at iaf.reg@kemlu.go.id if you have any questions or need further assistance.\n\nWarm regards,\nThe 2nd IAF Registration Committee"
-                />
-                <field
-                    name="rejection_subject"
-                    type="text"
-                    label="Rejection Email Subject"
-                    description="Subject of the email sent when the registration is rejected."
-                    default="The Second IAF Registration"
+                    type="textarea"
+                    label="Rescinded Message"
+                    description="Message to send when the registration is rescinded. Use {first_name} and {last_name} as placeholders."
+                    rows="10"
+                    cols="50"
+                    default="Dear {first_name} {last_name},\n\nWe regret to inform you that your status for the 2nd Indonesia-Africa Forum (IAF) has been rescinded. Please contact us at iaf.reg@kemlu.go.id if you have any questions or need further assistance.\n\nWarm regards,\nThe 2nd IAF Registration Committee"
                 />
                 <field
                     name="rejected_message"
-                    type="editor"
-                    label="The Second IAF Registration"
-                    description="Message to send when the registration is rejected. Use {fullname} as a placeholder for the full name."
-                    default="Dear {fullname},\n\nWe regret to inform you that your registration for the 2nd Indonesia-Africa Forum (IAF) has been rejected. Please contact us at iaf.reg@kemlu.go.id if you have any questions or need further assistance.\n\nWarm regards,\nThe 2nd IAF Registration Committee"
+                    type="textarea"
+                    label="Rejected Message"
+                    description="Message to send when the registration is rejected. Use {first_name} and {last_name} as placeholders."
+                    rows="10"
+                    cols="50"
+                    default="Dear {first_name} {last_name},\n\nWe regret to inform you that your registration for the 2nd Indonesia-Africa Forum (IAF) has been rejected. Please contact us at iaf.reg@kemlu.go.id if you have any questions or need further assistance.\n\nWarm regards,\nThe 2nd IAF Registration Committee"
                 />
                 <field
-                    name="rescind_reject_subject"
-                    type="text"
-                    label="Rescind Reject Email Subject"
-                    description="Subject of the email sent when the rejection is rescinded."
-                    default="The Second IAF Registration"
-                />
-                <field
-                    name="rescind_reject_message"
-                    type="editor"
-                    label="The Second IAF Registration"
-                    description="Message to send when the rejection is rescinded. Use {fullname} as a placeholder for the full name."
-                    default="Dear {fullname},\n\nYour registration status for the 2nd Indonesia-Africa Forum (IAF) has been set back to pending. Please contact us at iaf.reg@kemlu.go.id if you have any questions or need further assistance.\n\nWarm regards,\nThe 2nd IAF Registration Committee"
+                    name="rescind_rejection_message"
+                    type="textarea"
+                    label="Rescind Rejection Message"
+                    description="Message to send when the registration rejection is rescinded. Use {first_name} and {last_name} as placeholders."
+                    rows="10"
+                    cols="50"
+                    default="Dear {first_name} {last_name},\n\nYour registration status for the 2nd Indonesia-Africa Forum (IAF) has been changed back to pending. Please contact us at iaf.reg@kemlu.go.id if you have any questions or need further assistance.\n\nWarm regards,\nThe 2nd IAF Registration Committee"
                 />
             </fieldset>
         </fields>

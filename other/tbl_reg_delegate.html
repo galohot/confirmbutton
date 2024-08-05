@@ -1,0 +1,157 @@
+<!-- JooDatabase: initial template for new databases -->
+<!-- see components/com_joodb/assets/joodb.css for style definitions -->
+<!-- Search box -->
+<div class="search-box">{joodb searchbox|title,value,category,status}</div>
+
+<!-- Controls and Header -->
+<div class="block">
+  <div style="float: right">{joodb limitbox}</div>
+  <p>{joodb pagecount}</p>
+  <p>{joodb exportbutton}</p>
+</div>
+
+{joodb orderlink|id|Id}{joodb orderlink|first_name|First Name}{joodb
+orderlink|last_name|Last Name}{joodb orderlink|created|latest}{joodb
+orderlink|country_org|Country/IO}{joodb orderlink|status|Registration Status}
+
+<!-- Title with Sortlinks -->
+<div class="block header">
+  <h2>Catalogue Items</h2>
+</div>
+
+<!-- Table Start -->
+<div class="table" data-tbl="tbl_reg_delegate" data-quota="9999">
+  {joodb loop}
+  <div
+    class="tr {joodb loopclass}"
+    style="
+      display: flex;
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+      padding: 15px;
+    "
+  >
+    <img
+      src="https://iaf.kemlu.go.id/abc_files/country/photo/{joodb field|photo}"
+      alt="test"
+      style="width: 200px; height: 200px; object-fit: cover; margin-right: 20px"
+    />
+    <div class="td" style="flex: 1">
+      <h3 class="title" style="margin-top: 0; color: #333">
+        {joodb field|first_name} {joodb field|last_name}
+      </h3>
+      <ul class="details" style="list-style-type: none; padding-left: 0">
+        <li><strong>ID:</strong> {joodb field|id}</li>
+        <li>
+          <strong>Country/Organization:</strong> {joodb field|country_org}
+        </li>
+        <li><strong>Email:</strong> {joodb field|email}</li>
+        <li><strong>Badge:</strong> {joodb field|badge}</li>
+        <li><strong>Position:</strong> {joodb field|position}</li>
+        <li><strong>Created at:</strong> {joodb field|created}</li>
+        {joodb ifis|status|pending}
+        <li>
+          <button
+            class="confirm-button"
+            data-id="{joodb field|id}"
+            data-email="{joodb field|email}"
+            data-first_name="{joodb field|first_name|strip}"
+            data-last_name="{joodb field|last_name|strip}"
+          >
+            <i class="fa fa-clock-o" style="color: orange"></i> Confirm
+          </button>
+          <button
+            class="reject-button"
+            data-id="{joodb field|id}"
+            data-email="{joodb field|email}"
+            data-first_name="{joodb field|first_name|strip}"
+            data-last_name="{joodb field|last_name|strip}"
+          >
+            <i class="fa fa-ban" style="color: red"></i> Reject
+          </button>
+        </li>
+        {joodb endif} {joodb ifis|status|rescinded}
+        <li>
+          <p style="color: red"><i class="fa fa-times-circle"></i> Rescinded</p>
+          <button
+            class="confirm-button"
+            data-id="{joodb field|id}"
+            data-email="{joodb field|email}"
+            data-first_name="{joodb field|first_name|strip}"
+            data-last_name="{joodb field|last_name|strip}"
+          >
+            <i class="fa fa-check" style="color: green"></i> Confirm
+          </button>
+        </li>
+        {joodb endif} {joodb ifis|status|waiting list}
+        <li class="py-3">
+          <p style="color: blue">
+            <i class="fa fa-hourglass-half"></i> Waiting List
+          </p>
+          <button
+            class="confirm-button"
+            data-id="{joodb field|id}"
+            data-email="{joodb field|email}"
+            data-first_name="{joodb field|first_name|strip}"
+            data-last_name="{joodb field|last_name|strip}"
+          >
+            <i class="fa fa-check" style="color: green"></i>
+            Re-Confirm<br /><span
+              >IMPORTANT: You may need to rescind the registration of other
+              approved participant(s) first.</span
+            >
+          </button>
+        </li>
+        <li>
+          <button
+            class="rescind-button"
+            data-id="{joodb field|id}"
+            data-email="{joodb field|email}"
+            data-first_name="{joodb field|first_name|strip}"
+            data-last_name="{joodb field|last_name|strip}"
+          >
+            <i class="fa fa-times" style="color: red"></i> Rescind Confirmation
+          </button>
+        </li>
+        {joodb endif} {joodb ifis|status|rejected}
+        <li>
+          <p style="color: grey"><i class="fa fa-ban"></i> Rejected</p>
+          <button
+            class="rescind-reject-button"
+            data-id="{joodb field|id}"
+            data-email="{joodb field|email}"
+            data-first_name="{joodb field|first_name|strip}"
+            data-last_name="{joodb field|last_name|strip}"
+          >
+            <i class="fa fa-times" style="color: green"></i> Rescind Rejection
+          </button>
+        </li>
+        {joodb endif} {joodb ifis|status|approved}
+        <li>
+          <p style="color: green">
+            <i class="fa fa-check-circle"></i> Approved
+          </p>
+          <button
+            class="rescind-button"
+            data-id="{joodb field|id}"
+            data-email="{joodb field|email}"
+            data-first_name="{joodb field|first_name|strip}"
+            data-last_name="{joodb field|last_name|strip}"
+          >
+            <i class="fa fa-times" style="color: red"></i> Rescind Confirmation
+          </button>
+        </li>
+        {joodb endif}
+      </ul>
+      <div class="readon" style="margin-top: 10px">{joodb readon}</div>
+    </div>
+  </div>
+  {joodb loop}
+</div>
+
+<h3>{joodb nodata}</h3>
+
+<div class="pagination" style="margin-top: 20px; text-align: center">
+  <p>{joodb pagecount}</p>
+  {joodb pagenav}
+</div>

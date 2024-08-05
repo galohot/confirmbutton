@@ -26,9 +26,9 @@ class PlgSystemConfirmButton extends CMSPlugin
         {
             $this->rejectItem();
         }
-        elseif ($task === 'rescindRejectItem')
+        elseif ($task === 'rescindReject')
         {
-            $this->rescindRejectItem();
+            $this->rescindReject();
         }
     }
 
@@ -37,15 +37,16 @@ class PlgSystemConfirmButton extends CMSPlugin
         $input = Factory::getApplication()->input;
         $id = $input->getInt('id');
         $email = $input->getString('email');
-        $fullName = $input->getString('fullname');
+        $firstName = $input->getString('first_name');
+        $lastName = $input->getString('last_name');
         $table = $input->getString('tbl');
-        $quota = $input->getInt('quota', $this->params->get('quota', 9999)); // Get quota from params
+        $quota = $input->getInt('quota', 9999);
 
-        if ($id && $email && $fullName && $table)
+        if ($id && $email && $firstName && $lastName && $table)
         {
             $db = Factory::getDbo();
 
-            // Check if records are over the quota
+            // Check if records are over quota
             $query = $db->getQuery(true)
                         ->select('COUNT(*)')
                         ->from($db->quoteName($table))
@@ -72,8 +73,8 @@ class PlgSystemConfirmButton extends CMSPlugin
 
             // Replace placeholders with actual values
             $messageBody = str_replace(
-                ['{fullname}'],
-                [$fullName],
+                ['{first_name}', '{last_name}'],
+                [$firstName, $lastName],
                 $messageTemplate
             );
 
@@ -88,7 +89,7 @@ class PlgSystemConfirmButton extends CMSPlugin
 
             $mailer->setSender($sender);
             $mailer->addRecipient($email);
-            $mailer->setSubject($this->params->get('confirmation_subject', 'The Second IAF Registration'));
+            $mailer->setSubject($this->params->get('email_subject', 'The Second IAF Registration'));
             $mailer->setBody($messageBody);
 
             if ($mailer->Send() !== true)
@@ -102,7 +103,7 @@ class PlgSystemConfirmButton extends CMSPlugin
         }
         else
         {
-            Factory::getApplication()->enqueueMessage('Missing ID, email, fullname, or table name', 'error');
+            Factory::getApplication()->enqueueMessage('Missing ID, email, first name, last name, or table name', 'error');
         }
 
         $app = Factory::getApplication();
@@ -127,7 +128,7 @@ class PlgSystemConfirmButton extends CMSPlugin
 
             // Send rescind email
             $query = $db->getQuery(true)
-                        ->select($db->quoteName(array('email', 'fullname')))
+                        ->select($db->quoteName(array('email', 'first_name', 'last_name')))
                         ->from($db->quoteName($table))
                         ->where($db->quoteName('id') . ' = ' . $db->quote($id));
             $db->setQuery($query);
@@ -135,14 +136,15 @@ class PlgSystemConfirmButton extends CMSPlugin
 
             if ($result) {
                 $email = $result->email;
-                $fullName = $result->fullname;
+                $firstName = $result->first_name;
+                $lastName = $result->last_name;
 
                 $messageTemplate = $this->params->get('rescinded_message', 'Default rescinded message');
 
                 // Replace placeholders with actual values
                 $messageBody = str_replace(
-                    ['{fullname}'],
-                    [$fullName],
+                    ['{first_name}', '{last_name}'],
+                    [$firstName, $lastName],
                     $messageTemplate
                 );
 
@@ -156,7 +158,7 @@ class PlgSystemConfirmButton extends CMSPlugin
 
                 $mailer->setSender($sender);
                 $mailer->addRecipient($email);
-                $mailer->setSubject($this->params->get('rescinded_subject', 'The Second IAF Registration'));
+                $mailer->setSubject($this->params->get('email_subject', 'The Second IAF Registration'));
                 $mailer->setBody($messageBody);
 
                 if ($mailer->Send() !== true)
@@ -183,12 +185,14 @@ class PlgSystemConfirmButton extends CMSPlugin
         $input = Factory::getApplication()->input;
         $id = $input->getInt('id');
         $email = $input->getString('email');
-        $fullName = $input->getString('fullname');
+        $firstName = $input->getString('first_name');
+        $lastName = $input->getString('last_name');
         $table = $input->getString('tbl');
 
-        if ($id && $email && $fullName && $table)
+        if ($id && $email && $firstName && $lastName && $table)
         {
             $db = Factory::getDbo();
+
             $query = $db->getQuery(true)
                         ->update($db->quoteName($table))
                         ->set($db->quoteName('status') . ' = ' . $db->quote('rejected'))
@@ -196,11 +200,12 @@ class PlgSystemConfirmButton extends CMSPlugin
             $db->setQuery($query);
             $db->execute();
 
-            // Replace placeholders with actual values
             $messageTemplate = $this->params->get('rejected_message', 'Default rejected message');
+
+            // Replace placeholders with actual values
             $messageBody = str_replace(
-                ['{fullname}'],
-                [$fullName],
+                ['{first_name}', '{last_name}'],
+                [$firstName, $lastName],
                 $messageTemplate
             );
 
@@ -215,12 +220,12 @@ class PlgSystemConfirmButton extends CMSPlugin
 
             $mailer->setSender($sender);
             $mailer->addRecipient($email);
-            $mailer->setSubject($this->params->get('rejection_subject', 'The Second IAF Registration'));
+            $mailer->setSubject($this->params->get('email_subject', 'The Second IAF Registration'));
             $mailer->setBody($messageBody);
 
             if ($mailer->Send() !== true)
             {
-                Factory::getApplication()->enqueueMessage('Error sending email', 'error');
+                Factory::getApplication()->enqueueMessage('Error sending rejection email', 'error');
             }
             else
             {
@@ -229,22 +234,20 @@ class PlgSystemConfirmButton extends CMSPlugin
         }
         else
         {
-            Factory::getApplication()->enqueueMessage('Missing ID, email, fullname, or table name', 'error');
+            Factory::getApplication()->enqueueMessage('Missing ID, email, first name, last name, or table name', 'error');
         }
 
         $app = Factory::getApplication();
         $app->redirect(JRoute::_(Factory::getURI()->toString(), false));
     }
 
-    private function rescindRejectItem()
+    private function rescindReject()
     {
         $input = Factory::getApplication()->input;
         $id = $input->getInt('id');
-        $email = $input->getString('email');
-        $fullName = $input->getString('fullname');
         $table = $input->getString('tbl');
 
-        if ($id && $email && $fullName && $table)
+        if ($id && $table)
         {
             $db = Factory::getDbo();
             $query = $db->getQuery(true)
@@ -254,40 +257,54 @@ class PlgSystemConfirmButton extends CMSPlugin
             $db->setQuery($query);
             $db->execute();
 
-            // Replace placeholders with actual values
-            $messageTemplate = $this->params->get('rescind_reject_message', 'Default rescind reject message');
-            $messageBody = str_replace(
-                ['{fullname}'],
-                [$fullName],
-                $messageTemplate
-            );
+            // Send rescind rejection email
+            $query = $db->getQuery(true)
+                        ->select($db->quoteName(array('email', 'first_name', 'last_name')))
+                        ->from($db->quoteName($table))
+                        ->where($db->quoteName('id') . ' = ' . $db->quote($id));
+            $db->setQuery($query);
+            $result = $db->loadObject();
 
-            // Send rescind reject email
-            $mailer = Factory::getMailer();
-            $config = Factory::getConfig();
+            if ($result) {
+                $email = $result->email;
+                $firstName = $result->first_name;
+                $lastName = $result->last_name;
 
-            $sender = array(
-                $config->get('mailfrom'),
-                $config->get('fromname')
-            );
+                $messageTemplate = $this->params->get('rescind_rejection_message', 'Default rescind rejection message');
 
-            $mailer->setSender($sender);
-            $mailer->addRecipient($email);
-            $mailer->setSubject($this->params->get('rescind_reject_subject', 'The Second IAF Registration'));
-            $mailer->setBody($messageBody);
+                // Replace placeholders with actual values
+                $messageBody = str_replace(
+                    ['{first_name}', '{last_name}'],
+                    [$firstName, $lastName],
+                    $messageTemplate
+                );
 
-            if ($mailer->Send() !== true)
-            {
-                Factory::getApplication()->enqueueMessage('Error sending email', 'error');
-            }
-            else
-            {
-                Factory::getApplication()->enqueueMessage('Status updated and email sent', 'message');
+                $mailer = Factory::getMailer();
+                $config = Factory::getConfig();
+
+                $sender = array(
+                    $config->get('mailfrom'),
+                    $config->get('fromname')
+                );
+
+                $mailer->setSender($sender);
+                $mailer->addRecipient($email);
+                $mailer->setSubject($this->params->get('email_subject', 'The Second IAF Registration'));
+                $mailer->setBody($messageBody);
+
+                if ($mailer->Send() !== true)
+                {
+                    Factory::getApplication()->enqueueMessage('Error sending rescind rejection email', 'error');
+                }
+                else
+                {
+                    Factory::getApplication()->enqueueMessage('Status rescinded and email sent', 'message');
+                }
             }
         }
         else
         {
-            Factory::getApplication()->enqueueMessage('Missing ID, email, fullname, or table name', 'error');
+            Factory::getApplication()->enqueueMessage('Missing ID or table name', 'error');
         }
 
         $app = Factory::getApplication();
