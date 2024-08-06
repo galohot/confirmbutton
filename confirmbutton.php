@@ -14,20 +14,13 @@ class PlgSystemConfirmButton extends CMSPlugin
         $input = Factory::getApplication()->input;
         $task = $input->getCmd('task');
 
-        if ($task === 'confirmItem')
-        {
+        if ($task === 'confirmItem') {
             $this->confirmItem();
-        }
-        elseif ($task === 'rescindItem')
-        {
+        } elseif ($task === 'rescindItem') {
             $this->rescindItem();
-        }
-        elseif ($task === 'rejectItem')
-        {
+        } elseif ($task === 'rejectItem') {
             $this->rejectItem();
-        }
-        elseif ($task === 'rescindReject')
-        {
+        } elseif ($task === 'rescindReject') {
             $this->rescindReject();
         }
     }
@@ -41,9 +34,9 @@ class PlgSystemConfirmButton extends CMSPlugin
         $lastName = $input->getString('last_name');
         $table = $input->getString('tbl');
         $quota = $input->getInt('quota', 9999);
+        $reason = $input->getString('reason', '');
 
-        if ($id && $email && $firstName && $lastName && $table)
-        {
+        if ($id && $email && $firstName && $lastName && $table) {
             $db = Factory::getDbo();
 
             // Check if records are over quota
@@ -67,6 +60,7 @@ class PlgSystemConfirmButton extends CMSPlugin
             $query = $db->getQuery(true)
                         ->update($db->quoteName($table))
                         ->set($db->quoteName('status') . ' = ' . $db->quote($status))
+                        ->set($db->quoteName('status_reason') . ' = ' . $db->quote($reason))
                         ->where($db->quoteName('id') . ' = ' . $db->quote($id));
             $db->setQuery($query);
             $db->execute();
@@ -89,20 +83,16 @@ class PlgSystemConfirmButton extends CMSPlugin
 
             $mailer->setSender($sender);
             $mailer->addRecipient($email);
+            $mailer->addCC('iaf.reg@kemlu.go.id');
             $mailer->setSubject($this->params->get('email_subject', 'The Second IAF Registration'));
             $mailer->setBody($messageBody);
 
-            if ($mailer->Send() !== true)
-            {
+            if ($mailer->Send() !== true) {
                 Factory::getApplication()->enqueueMessage('Error sending email', 'error');
-            }
-            else
-            {
+            } else {
                 Factory::getApplication()->enqueueMessage('Status updated and email sent', 'message');
             }
-        }
-        else
-        {
+        } else {
             Factory::getApplication()->enqueueMessage('Missing ID, email, first name, last name, or table name', 'error');
         }
 
@@ -117,12 +107,12 @@ class PlgSystemConfirmButton extends CMSPlugin
         $table = $input->getString('tbl');
         $reason = $input->getString('reason', '');
 
-        if ($id && $table)
-        {
+        if ($id && $table) {
             $db = Factory::getDbo();
             $query = $db->getQuery(true)
                         ->update($db->quoteName($table))
                         ->set($db->quoteName('status') . ' = ' . $db->quote('rescinded'))
+                        ->set($db->quoteName('status_reason') . ' = ' . $db->quote($reason))
                         ->where($db->quoteName('id') . ' = ' . $db->quote($id));
             $db->setQuery($query);
             $db->execute();
@@ -163,21 +153,17 @@ class PlgSystemConfirmButton extends CMSPlugin
 
                 $mailer->setSender($sender);
                 $mailer->addRecipient($email);
+                $mailer->addCC('iaf.reg@kemlu.go.id');
                 $mailer->setSubject($this->params->get('email_subject', 'The Second IAF Registration'));
                 $mailer->setBody($messageBody);
 
-                if ($mailer->Send() !== true)
-                {
+                if ($mailer->Send() !== true) {
                     Factory::getApplication()->enqueueMessage('Error sending rescind email', 'error');
-                }
-                else
-                {
+                } else {
                     Factory::getApplication()->enqueueMessage('Status rescinded and email sent', 'message');
                 }
             }
-        }
-        else
-        {
+        } else {
             Factory::getApplication()->enqueueMessage('Missing ID or table name', 'error');
         }
 
@@ -195,13 +181,13 @@ class PlgSystemConfirmButton extends CMSPlugin
         $table = $input->getString('tbl');
         $reason = $input->getString('reason', '');
 
-        if ($id && $email && $firstName && $lastName && $table)
-        {
+        if ($id && $email && $firstName && $lastName && $table) {
             $db = Factory::getDbo();
 
             $query = $db->getQuery(true)
                         ->update($db->quoteName($table))
                         ->set($db->quoteName('status') . ' = ' . $db->quote('rejected'))
+                        ->set($db->quoteName('status_reason') . ' = ' . $db->quote($reason))
                         ->where($db->quoteName('id') . ' = ' . $db->quote($id));
             $db->setQuery($query);
             $db->execute();
@@ -230,20 +216,16 @@ class PlgSystemConfirmButton extends CMSPlugin
 
             $mailer->setSender($sender);
             $mailer->addRecipient($email);
+            $mailer->addCC('iaf.reg@kemlu.go.id');
             $mailer->setSubject($this->params->get('email_subject', 'The Second IAF Registration'));
             $mailer->setBody($messageBody);
 
-            if ($mailer->Send() !== true)
-            {
+            if ($mailer->Send() !== true) {
                 Factory::getApplication()->enqueueMessage('Error sending rejection email', 'error');
-            }
-            else
-            {
+            } else {
                 Factory::getApplication()->enqueueMessage('Status updated and email sent', 'message');
             }
-        }
-        else
-        {
+        } else {
             Factory::getApplication()->enqueueMessage('Missing ID, email, first name, last name, or table name', 'error');
         }
 
@@ -258,12 +240,12 @@ class PlgSystemConfirmButton extends CMSPlugin
         $table = $input->getString('tbl');
         $reason = $input->getString('reason', '');
 
-        if ($id && $table)
-        {
+        if ($id && $table) {
             $db = Factory::getDbo();
             $query = $db->getQuery(true)
                         ->update($db->quoteName($table))
                         ->set($db->quoteName('status') . ' = ' . $db->quote('pending'))
+                        ->set($db->quoteName('status_reason') . ' = ' . $db->quote($reason))
                         ->where($db->quoteName('id') . ' = ' . $db->quote($id));
             $db->setQuery($query);
             $db->execute();
@@ -303,22 +285,18 @@ class PlgSystemConfirmButton extends CMSPlugin
                 );
 
                 $mailer->setSender($sender);
-                $mailer->addRecipient($email);
+                $mailer.addRecipient($email);
+                $mailer->addCC('iaf.reg@kemlu.go.id');
                 $mailer->setSubject($this->params->get('email_subject', 'The Second IAF Registration'));
                 $mailer->setBody($messageBody);
 
-                if ($mailer->Send() !== true)
-                {
+                if ($mailer->Send() !== true) {
                     Factory::getApplication()->enqueueMessage('Error sending rescind rejection email', 'error');
-                }
-                else
-                {
+                } else {
                     Factory::getApplication()->enqueueMessage('Status rescinded and email sent', 'message');
                 }
             }
-        }
-        else
-        {
+        } else {
             Factory::getApplication()->enqueueMessage('Missing ID or table name', 'error');
         }
 

@@ -115,5 +115,4 @@
         addRejectButtonListeners();
         addRescindRejectButtonListeners();
     });
-
 </script>
